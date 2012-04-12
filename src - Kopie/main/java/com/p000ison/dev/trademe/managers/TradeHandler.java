@@ -6,7 +6,6 @@ import com.p000ison.dev.trademe.Util;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -40,40 +39,43 @@ public class TradeHandler {
         target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotRequest(), requester.getName())));
     }
 
-    public void requestOffer(Player requester, Player target, Material mat, int amount, byte data, double price) {
-        if (Util.contains(requester.getInventory(), mat, amount, data)) {
+    public void requestOffer(Player requester, Player target, ItemStack item, double price) {
+        if (requester.getInventory().contains(item.getType(), item.getAmount())) {
             if (TradeMe.hasMoney(target, price)) {
                 if (target.getInventory().firstEmpty() != -1) {
-                    offerRequest.put(target, new Offer(mat, amount, data, requester, price, null, 0, (byte) -1));
-                    requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageOfferSent(), mat.toString(), data, amount, price)));
-                    target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotOffer(), requester.getName(), mat.toString(), data, amount, price)));
+                    offerRequest.put(target, new Offer(item, requester, price, null));
+                    requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageOfferSent(), item.getType().toString().toLowerCase(), item.getAmount(), price)));
+                    target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotOffer(), requester.getName(), item.getType().toString().toLowerCase(), item.getAmount(), price)));
                 } else {
-                    requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorOtherNotEnoughtItems(), target.getName())));
+                    target.sendMessage("You dont have enough place in your inventory.");
+                    requester.sendMessage(String.format("%s doesnt have enough place in his inventory.", target.getName()));
                 }
             } else {
-                requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorOtherNotEnoughtMoney(), target.getName())));
+                requester.sendMessage(String.format("%s doesnt have enough money.", target.getName()));
+                target.sendMessage("You dont have enough money.");
             }
         } else {
             requester.sendMessage(Util.color(plugin.getSettingsManager().getErrorNotEnoughtItems()));
         }
     }
 
-    public void requestOfferItem(Player requester, Player target, Material mat, int amount, byte data, Material matPrice, int amountPrice, byte dataPrice) {
-        if (Util.contains(requester.getInventory(), mat, amount, data)) {
-            if (Util.contains(target.getInventory(), matPrice, amountPrice, dataPrice)) {
+    public void requestOfferItem(Player requester, Player target, ItemStack item, ItemStack itemPrice) {
+        if (requester.getInventory().contains(item, item.getAmount())) {
+            if (target.getInventory().contains(itemPrice, itemPrice.getAmount())) {
                 if (target.getInventory().firstEmpty() != -1) {
                     if (requester.getInventory().firstEmpty() != -1) {
-                        offerRequest.put(target, new Offer(mat, amount, data, requester, -1, matPrice, amountPrice, dataPrice));
-                        requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageOfferSent(), mat.toString(), data, amount, matPrice.toString(), data, amountPrice)));
-                        target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotOffer(), requester.getName(), mat.toString(), data, amount, matPrice.toString(), data, amountPrice)));
+                        offerRequest.put(target, new Offer(item, requester, -1, itemPrice));
+                        requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageOfferSent(), item.getType().toString().toLowerCase(), item.getAmount(), itemPrice)));
+                        target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotOffer(), requester.getName(), item.getType().toString().toLowerCase(), item.getAmount(), itemPrice)));
                     } else {
-                        requester.sendMessage(Util.color(plugin.getSettingsManager().getErrorNotEnoughtPlace()));
                     }
                 } else {
-                    requester.sendMessage(Util.color(plugin.getSettingsManager().getErrorOtherNotEnoughtPlace()));
+                    target.sendMessage("You dont have enough place in your inventory.");
+                    requester.sendMessage(String.format("%s doesnt have enough place in his inventory.", target.getName()));
                 }
             } else {
-                requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorOtherNotEnoughtItems(), target.getName())));
+                requester.sendMessage(String.format("%s doesnt have this item.", target.getName()));
+                target.sendMessage("You dont have %s");
             }
         } else {
             requester.sendMessage(Util.color(plugin.getSettingsManager().getErrorNotEnoughtItems()));
@@ -81,26 +83,20 @@ public class TradeHandler {
     }
 
     public void sendItem(Player from, Player target, ItemStack item, double price, ItemStack itemPrice) {
-        if (price != -1) {
-            TradeMe.deposit(from, price);
-            TradeMe.withdraw(target, price);
-            Util.remove(from.getInventory(), item, item.getAmount(), (short) -1);
-            target.getInventory().addItem(item);
-        } else if (itemPrice != null && price == -1) {
-            if (Util.contains(target.getInventory(), itemPrice.getType(), itemPrice.getAmount(), itemPrice.getData().getData())) {
-                if (Util.contains(from.getInventory(), item.getType(), item.getAmount(), item.getData().getData())) {
-                    Util.remove(target.getInventory(), itemPrice, itemPrice.getAmount(), (short) -1);
-                    from.getInventory().addItem(itemPrice);
-                    Util.remove(from.getInventory(), item, item.getAmount(), (short) -1);
-                    target.getInventory().addItem(item);
-                } else {
-                    target.sendMessage(Util.color(plugin.getSettingsManager().getErrorNotEnoughtItems()));
-                }
-            } else {
-                target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorOtherNotEnoughtItems(), from.getName())));
-            }
-        }
+        if (from.getInventory().contains(item.getType(), item.getAmount())) {
+            if (price != -1) {
+                TradeMe.deposit(from, price);
+                TradeMe.withdraw(target, price);
 
+            } else if (itemPrice != null && price == -1) {
+                if (target.getInventory().contains(itemPrice.getType(), itemPrice.getAmount())) {
+                    Util.remove(target.getInventory(), itemPrice, itemPrice.getAmount(), item.getDurability());
+                    from.getInventory().addItem(itemPrice);
+                }
+            }
+            Util.remove(from.getInventory(), item, item.getAmount(), item.getDurability());
+            target.getInventory().addItem(item);
+        }
     }
 
     public void cancelTradeFromRequester(Player requester) {

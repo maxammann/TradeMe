@@ -36,15 +36,21 @@ public class OfferCommand extends BasicCommand {
                 String[] item = args[0].split("[:]", 2);
                 if (args.length == 2) {
                     if (Util.checkItem(item[0])) {
-                        plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Material.valueOf(item[0].toUpperCase()), 1, Byte.parseByte(item[1]), Double.parseDouble(args[1]));
+
+                        plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), new ItemStack(Material.valueOf(item[0].toUpperCase()), 1, Byte.parseByte(item[1])), Double.parseDouble(args[1]));
                     } else {
                         player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
                     }
                 } else if (args.length == 3) {
                     if (Util.checkItem(item[0])) {
-                        plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Material.valueOf(item[0].toUpperCase()), Integer.parseInt(args[1]), Byte.parseByte(item[1]), Double.parseDouble(args[2]));
+                        plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), new ItemStack(Material.valueOf(item[0].toUpperCase()), Integer.parseInt(args[1]), Byte.parseByte(item[1])), Double.parseDouble(args[2]));
                     } else {
                         player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                    }
+                }
+                if (Util.checkItem(args[0])) {
+                    for (Player admins : plugin.getTradeHandler().getCurrentAdmins()) {
+                        admins.sendMessage(String.format("%s offered %s %s %s", player.getName(), Util.getKeyfromValue(plugin.getTradeHandler().getTradeRequests(), player).getName(), args[1], args[0].toLowerCase()));
                     }
                 }
             } else {

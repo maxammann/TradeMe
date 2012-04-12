@@ -50,7 +50,6 @@ public final class SettingsManager {
     private String ErrorNotEnoughtPlace;
     private String ErrorOtherNotEnoughtPlace;
     private double DistanceMinimum;
-    private String ErrorOtherNotEnoughtItems;
 
     /**
      *
@@ -116,7 +115,6 @@ public final class SettingsManager {
         ErrorOtherNotEnoughtMoney = getConfig().getString("Messages.OtherNotEnoughtMoney");
         ErrorNotEnoughtPlace = getConfig().getString("Messages.NotEnoughtPlace");
         ErrorOtherNotEnoughtPlace = getConfig().getString("Messages.OtherNotEnoughtPlace");
-        ErrorOtherNotEnoughtItems = getConfig().getString("Messages.OtherNotEnoughtItems");
 
         save();
     }
@@ -393,12 +391,5 @@ public final class SettingsManager {
      */
     public String getErrorOtherNotEnoughtPlace() {
         return ErrorOtherNotEnoughtPlace;
-    }
-
-    /**
-     * @return the ErrorOtherNotEnoughtItems
-     */
-    public String getErrorOtherNotEnoughtItems() {
-        return ErrorOtherNotEnoughtItems;
     }
 }

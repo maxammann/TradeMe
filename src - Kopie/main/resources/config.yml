@@ -1,12 +1,11 @@
 Settings:
-  DistanceMinimum: 20.0  # Set this to -1 if you dont want this!
+  DistanceMinimum: 20.0  # Set this to 0.0 if you dont want this!
 Messages:
   RequestSent: '&3Request has been sent!'
   GotRequest: '&3You got a trade request from %s.'
-  OfferSent: '&3Offer has been sent!(Offer: [Type: %s:%s Amount: %s] Condition: [Price: %s])'
-  GotOffer: '&3You got a Offer from %s (Offer: [Type: %s:%s Amount: %s] Condition: [Type: %s:%s Amount: %s]).'
+  OfferSent: '&3Offer has been sent!(Type: %s Amount: %s Price: %s)'
+  GotOffer: '&3You got a Offer from %s (Type: %s Amount: %s Price: %s).'
   NotEnoughtItems: '&3You dont have the item.'
-  OtherNotEnoughtItems: '&3%s does not have the item.'
   AcceptRequest: '&3You accept the request.'
   NotTrading: '&3You are not trading at the moment.'
   NoRequestToTrade: '&3There is no request to trade.'

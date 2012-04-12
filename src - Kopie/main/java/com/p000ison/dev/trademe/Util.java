@@ -88,37 +88,11 @@ public class Util {
     private static boolean equals(ItemStack i, ItemStack item, short durability) {
         return i != null
                 && i.getType() == item.getType()
-                && i.getData().getData() == item.getData().getData()
                 && (durability == -1 || i.getDurability() == durability);
     }
 
     public static String color(String text) {
         String colourised = text.replaceAll("&(?=[0-9a-fA-FkK])", "\u00a7");
         return colourised;
-    }
-    
-    public static boolean contains(Inventory inv, Material mat, int amount, byte data) {
-        int i = 0;
-        
-        for (ItemStack is : inv.getContents()) {
-            if (is != null) {
-                if (is.getType() == mat && is.getData().getData() == data) {
-                    i = i + is.getAmount();
-                }
-            }
-        }
-        return i >= amount;
-    }
-    
-    public static int add(Inventory inv, ItemStack item, int amount) {
-        amount = (amount > 0 ? amount : 1);
-        ItemStack itemstack = new ItemStack(item.getType(), amount, item.getDurability());
-        itemstack.addEnchantments(item.getEnchantments());
-
-        HashMap<Integer, ItemStack> items = inv.addItem(itemstack);
-        amount = 0;
-        for (ItemStack toAdd : items.values()) amount += toAdd.getAmount();
-
-        return amount;
     }
 }

@@ -23,7 +23,7 @@ public class TMPlayerListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOW)
     public void onPlayerMove(PlayerMoveEvent event) {
-        if (plugin.getSettingsManager().getDistanceMinimum() != -1) {
+        if (plugin.getSettingsManager().getDistanceMinimum() != 0.0) {
             if (plugin.getTradeHandler().isTrading(event.getPlayer()) || plugin.getTradeHandler().isInRequest(event.getPlayer())) {
                 if ((Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()) != null && event.getPlayer().getLocation().distance(Bukkit.getPlayer(Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()).getName()).getLocation()) >= plugin.getSettingsManager().getDistanceMinimum())
                         || (Util.getPartner(plugin.getTradeHandler().getTradeRequests(), event.getPlayer()) != null && event.getPlayer().getLocation().distance(Bukkit.getPlayer(Util.getPartner(plugin.getTradeHandler().getTradeRequests(), event.getPlayer()).getName()).getLocation()) >= plugin.getSettingsManager().getDistanceMinimum())) {
