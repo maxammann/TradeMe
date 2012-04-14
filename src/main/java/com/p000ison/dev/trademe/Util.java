@@ -1,6 +1,5 @@
 package com.p000ison.dev.trademe;
 
-import com.p000ison.dev.trademe.managers.TradeHandler;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import org.bukkit.Material;
@@ -40,7 +39,7 @@ public class Util {
         }
         return null;
     }
-    
+
     public static boolean checkItem(String itemname) {
         return Material.matchMaterial(itemname) != null;
     }
@@ -96,10 +95,10 @@ public class Util {
         String colourised = text.replaceAll("&(?=[0-9a-fA-FkK])", "\u00a7");
         return colourised;
     }
-    
+
     public static boolean contains(Inventory inv, Material mat, int amount, byte data) {
         int i = 0;
-        
+
         for (ItemStack is : inv.getContents()) {
             if (is != null) {
                 if (is.getType() == mat && is.getData().getData() == data) {
@@ -109,7 +108,7 @@ public class Util {
         }
         return i >= amount;
     }
-    
+
     public static int add(Inventory inv, ItemStack item, int amount) {
         amount = (amount > 0 ? amount : 1);
         ItemStack itemstack = new ItemStack(item.getType(), amount, item.getDurability());
@@ -117,8 +116,22 @@ public class Util {
 
         HashMap<Integer, ItemStack> items = inv.addItem(itemstack);
         amount = 0;
-        for (ItemStack toAdd : items.values()) amount += toAdd.getAmount();
+        for (ItemStack toAdd : items.values()) {
+            amount += toAdd.getAmount();
+        }
 
         return amount;
+    }
+
+    public static Material getMaterialFromIdOrName(String name) {
+        if (checkItem(name) || checkItem(Material.getMaterial(Integer.parseInt(name)).name())) {
+            if (name.matches("[0-9]+")) {
+                return Material.getMaterial(Integer.parseInt(name));
+            } else if (name.matches("[a-zA-Z]+")) {
+                return Material.getMaterial(name.toUpperCase());
+            }
+            return null;
+        }
+        return null;
     }
 }

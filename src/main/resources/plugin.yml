@@ -33,6 +33,8 @@ permissions:
     description: Alloes you to deny a offer.
   trademe.command.offer:
     description: Alloes you to do a offer.
+  trademe.command.offeritem:
+    description: Alloes you to do a item offer.
   trademe.command.reload:
     description: Alloes you to reload the config.
   trademe.command.request:
@@ -46,16 +48,12 @@ permissions:
       trademe.command.yes: true
       trademe.command.no: true
       trademe.command.offer: true
+      trademe.command.offeritem: true
       trademe.command.request: true
   trademe.admin.*:
     description: Default Admin Permissions.
     default: op
     children:
-      trademe.command.accept: true
-      trademe.command.deny: true
-      trademe.command.yes: true
-      trademe.command.no: true
-      trademe.command.offer: true
-      trademe.command.request: true
+      trademe.user.*: true
       trademe.command.reload: true
       trademe.command.admin: true

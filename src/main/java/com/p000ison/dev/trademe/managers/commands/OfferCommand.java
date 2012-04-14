@@ -1,13 +1,9 @@
 package com.p000ison.dev.trademe.managers.commands;
 
-import com.p000ison.dev.trademe.Offer;
 import com.p000ison.dev.trademe.TradeMe;
 import com.p000ison.dev.trademe.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
  *
@@ -23,7 +19,7 @@ public class OfferCommand extends BasicCommand {
         setDescription("Does a offer.");
         setUsage("/trademe offer §9<item> <amount> <price>");
         setArgumentRange(2, 3);
-        setIdentifiers("offer");
+        setIdentifiers("offer", "of");
         setPermission("trademe.command.offer");
     }
 
@@ -35,16 +31,32 @@ public class OfferCommand extends BasicCommand {
             if (plugin.getTradeHandler().isTrading(player)) {
                 String[] item = args[0].split("[:]", 2);
                 if (args.length == 2) {
-                    if (Util.checkItem(item[0])) {
-                        plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Material.valueOf(item[0].toUpperCase()), 1, Byte.parseByte(item[1]), Double.parseDouble(args[1]));
-                    } else {
-                        player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                    if (item.length == 2) {
+                        if (Util.getMaterialFromIdOrName(item[0]) != null) {
+                            plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Util.getMaterialFromIdOrName(item[0]), 1, Byte.parseByte(item[1]), Double.parseDouble(args[1]));
+                        } else {
+                            player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                        }
+                    } else if (item.length == 1) {
+                        if (Util.getMaterialFromIdOrName(item[0]) != null) {
+                            plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Util.getMaterialFromIdOrName(args[0]), 1, Byte.parseByte(item[1]), Double.parseDouble(args[1]));
+                        } else {
+                            player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                        }
                     }
                 } else if (args.length == 3) {
-                    if (Util.checkItem(item[0])) {
-                        plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Material.valueOf(item[0].toUpperCase()), Integer.parseInt(args[1]), Byte.parseByte(item[1]), Double.parseDouble(args[2]));
-                    } else {
-                        player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                    if (item.length == 2) {
+                        if (Util.getMaterialFromIdOrName(item[0]) != null) {
+                            plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Util.getMaterialFromIdOrName(item[0]), Integer.parseInt(args[1]), Byte.parseByte(item[1]), Double.parseDouble(args[2]));
+                        } else {
+                            player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                        }
+                    } else if (item.length == 1) {
+                        if (Util.getMaterialFromIdOrName(item[0]) != null) {
+                            plugin.getTradeHandler().requestOffer(player, Util.getPartner(plugin.getTradeHandler().getTrade(), player), Util.getMaterialFromIdOrName(args[0]), Integer.parseInt(args[1]), (byte) 0, Double.parseDouble(args[2]));
+                        } else {
+                            player.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorInvalidItem(), args[0])));
+                        }
                     }
                 }
             } else {

@@ -19,7 +19,7 @@ public class AcceptCommand extends BasicCommand {
         setDescription("Accepts a request.");
         setUsage("/trademe accept §9- Accepts Trade-Requests");
         setArgumentRange(0, 0);
-        setIdentifiers("accept");
+        setIdentifiers("accept", "ac");
         setPermission("trademe.command.accept");
     }
 

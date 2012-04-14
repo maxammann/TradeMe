@@ -19,7 +19,7 @@ public class ChatCommand extends BasicCommand {
         setDescription("Chat with your partner");
         setUsage("/trademe chat");
         setArgumentRange(1, 1);
-        setIdentifiers("chat");
+        setIdentifiers("chat", "ch");
         setPermission("trademe.command.chat");
     }
 

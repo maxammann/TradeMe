@@ -64,8 +64,8 @@ public class TradeHandler {
                 if (target.getInventory().firstEmpty() != -1) {
                     if (requester.getInventory().firstEmpty() != -1) {
                         offerRequest.put(target, new Offer(mat, amount, data, requester, -1, matPrice, amountPrice, dataPrice));
-                        requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageOfferSent(), mat.toString(), data, amount, matPrice.toString(), data, amountPrice)));
-                        target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotOffer(), requester.getName(), mat.toString(), data, amount, matPrice.toString(), data, amountPrice)));
+                        requester.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageItemOfferSent(), mat.toString(), data, amount, matPrice.toString(), data, amountPrice)));
+                        target.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageGotItemOffer(), requester.getName(), mat.toString(), data, amount, matPrice.toString(), data, amountPrice)));
                     } else {
                         requester.sendMessage(Util.color(plugin.getSettingsManager().getErrorNotEnoughtPlace()));
                     }

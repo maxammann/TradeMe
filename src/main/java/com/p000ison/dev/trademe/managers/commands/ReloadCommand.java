@@ -27,7 +27,7 @@ public class ReloadCommand extends BasicCommand {
         final long startTime = System.nanoTime();
         plugin.getSettingsManager().load();
         final long endTime = System.nanoTime();
-        sender.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageReload(), (endTime - startTime) / 1000)));
+        sender.sendMessage(Util.color(String.format(plugin.getSettingsManager().getMessageReload(), ((double) (endTime - startTime)) / 1000000000.0)));
         return true;
     }
 }

@@ -2,7 +2,6 @@ package com.p000ison.dev.trademe.managers.commands;
 
 import com.p000ison.dev.trademe.TradeMe;
 import com.p000ison.dev.trademe.Util;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

@@ -19,7 +19,7 @@ public class DenyCommand extends BasicCommand {
         setDescription("Denys a request.");
         setUsage("/trademe deny §9- Denies Trade-Requests");
         setArgumentRange(0, 0);
-        setIdentifiers("deny", "leave");
+        setIdentifiers("deny", "leave", "dy");
         setPermission("trademe.command.deny");
     }
 

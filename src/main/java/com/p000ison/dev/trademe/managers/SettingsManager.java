@@ -51,6 +51,8 @@ public final class SettingsManager {
     private String ErrorOtherNotEnoughtPlace;
     private double DistanceMinimum;
     private String ErrorOtherNotEnoughtItems;
+    private String MessageItemOfferSent;
+    private String MessageGotItemOffer;
 
     /**
      *
@@ -117,6 +119,8 @@ public final class SettingsManager {
         ErrorNotEnoughtPlace = getConfig().getString("Messages.NotEnoughtPlace");
         ErrorOtherNotEnoughtPlace = getConfig().getString("Messages.OtherNotEnoughtPlace");
         ErrorOtherNotEnoughtItems = getConfig().getString("Messages.OtherNotEnoughtItems");
+        MessageItemOfferSent = getConfig().getString("Messages.ItemOfferSent");
+        MessageGotItemOffer = getConfig().getString("Messages.GotItemOffer");
 
         save();
     }
@@ -400,5 +404,19 @@ public final class SettingsManager {
      */
     public String getErrorOtherNotEnoughtItems() {
         return ErrorOtherNotEnoughtItems;
+    }
+
+    /**
+     * @return the MessageItemOfferSent
+     */
+    public String getMessageItemOfferSent() {
+        return MessageItemOfferSent;
+    }
+
+    /**
+     * @return the MessageGotItemOffer
+     */
+    public String getMessageGotItemOffer() {
+        return MessageGotItemOffer;
     }
 }

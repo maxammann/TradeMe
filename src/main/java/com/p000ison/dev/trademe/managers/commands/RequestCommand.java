@@ -20,7 +20,7 @@ public class RequestCommand extends BasicCommand {
         setDescription("Requests a trade.");
         setUsage("/trademe request §9<player>");
         setArgumentRange(1, 1);
-        setIdentifiers("request");
+        setIdentifiers("request", "req");
         setPermission("trademe.command.request");
     }
 
@@ -34,15 +34,12 @@ public class RequestCommand extends BasicCommand {
                     if (Bukkit.getPlayer(args[0]) != null && Bukkit.getPlayer(args[0]).isOnline()) {
                         if (player.getLocation().distance(Bukkit.getPlayer(args[0]).getLocation()) <= plugin.getSettingsManager().getDistanceMinimum()) {
                             plugin.getTradeHandler().requestTrade(player, Bukkit.getPlayer(args[0]));
-                            for (Player admins : plugin.getTradeHandler().getCurrentAdmins()) {
-                                admins.sendMessage(String.format("%s sent a request to %s", player.getName(), args[0]));
-                            }
                         } else {
                             sender.sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
                         }
 
                     } else {
-                        sender.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorNotAValidPlayer(), args[0])));
+                        sender.sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorNotAValidPlayer(), args[0].toString())));
                     }
                 } else {
                     sender.sendMessage(Util.color(plugin.getSettingsManager().getErrorTradingWithYourself()));

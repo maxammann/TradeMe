@@ -59,7 +59,7 @@ public class TradeMe extends JavaPlugin {
             getServer().getPluginManager().disablePlugin(this);
         }
         final long endTime = System.nanoTime();
-        log.info(String.format("Enabled (%s ms)", (endTime - startTime) / 1000));
+        log.info(String.format("Enabled (%s s)", ((double)(endTime - startTime)) / 1000000000.0));
     }
 
     private void registerCommands() {
@@ -112,9 +112,9 @@ public class TradeMe extends JavaPlugin {
     public static void deposit(Player player, double value) {
         EconomyResponse r = econ.depositPlayer(player.getName(), value);
         if (r.transactionSuccess()) {
-            player.sendMessage(String.format("You were given %s and now have %s", econ.format(r.amount), econ.format(r.balance)));
+            player.sendMessage(Util.color(String.format("&4You were given %s and now have %s", econ.format(r.amount), econ.format(r.balance))));
         } else {
-            player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+            player.sendMessage(Util.color(String.format("&4An error occured: %s", r.errorMessage)));
         }
     }
     
@@ -125,9 +125,9 @@ public class TradeMe extends JavaPlugin {
     public static void withdraw(Player player, double value) {
         EconomyResponse r = econ.withdrawPlayer(player.getName(), value);
         if (r.transactionSuccess()) {
-            player.sendMessage(String.format("You were withdrawen %s and now have %s", econ.format(r.amount), econ.format(r.balance)));
+            player.sendMessage(Util.color(String.format("&4You were withdrawen %s and now have %s", econ.format(r.amount), econ.format(r.balance))));
         } else {
-            player.sendMessage(String.format("An error occured: %s", r.errorMessage));
+            player.sendMessage(Util.color(String.format("&4An error occured: %s", r.errorMessage)));
         }
     }
 
