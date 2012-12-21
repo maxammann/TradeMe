@@ -6,14 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author p000ison
  */
 public class DenyCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public DenyCommand(TradeMe plugin) {
+    public DenyCommand(TradeMe plugin)
+    {
         super("Deny");
         this.plugin = plugin;
         setDescription("Denys a request.");
@@ -24,7 +24,8 @@ public class DenyCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (plugin.getTradeHandler().isTrading(player)) {

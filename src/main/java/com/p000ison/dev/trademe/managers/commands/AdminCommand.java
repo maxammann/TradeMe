@@ -6,14 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author p000ison
  */
 public class AdminCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public AdminCommand(TradeMe plugin) {
+    public AdminCommand(TradeMe plugin)
+    {
         super("Admin");
         this.plugin = plugin;
         setDescription("Admin Command.");
@@ -24,7 +24,8 @@ public class AdminCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (args.length == 1) {

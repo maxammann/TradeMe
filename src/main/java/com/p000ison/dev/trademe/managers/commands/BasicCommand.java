@@ -3,7 +3,6 @@ package com.p000ison.dev.trademe.managers.commands;
 import org.bukkit.command.CommandSender;
 
 /**
- *
  * @author p000ison
  */
 public abstract class BasicCommand implements Command {
@@ -17,56 +16,67 @@ public abstract class BasicCommand implements Command {
     private int minArguments = 0;
     private int maxArguments = 0;
 
-    public BasicCommand(String name) {
+    public BasicCommand(String name)
+    {
         this.name = name;
     }
 
     @Override
-    public void cancelInteraction(CommandSender executor) {
+    public void cancelInteraction(CommandSender executor)
+    {
     }
 
     @Override
-    public String getDescription() {
+    public String getDescription()
+    {
         return description;
     }
 
     @Override
-    public String[] getIdentifiers() {
+    public String[] getIdentifiers()
+    {
         return identifiers;
     }
 
     @Override
-    public int getMaxArguments() {
+    public int getMaxArguments()
+    {
         return maxArguments;
     }
 
     @Override
-    public int getMinArguments() {
+    public int getMinArguments()
+    {
         return minArguments;
     }
 
     @Override
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
     @Override
-    public String[] getNotes() {
+    public String[] getNotes()
+    {
         return notes;
     }
 
     @Override
-    public String getPermission() {
+    public String getPermission()
+    {
         return permission;
     }
 
     @Override
-    public String getUsage() {
+    public String getUsage()
+    {
         return usage;
     }
 
     @Override
-    public boolean isIdentifier(CommandSender executor, String input) {
+    public boolean isIdentifier(CommandSender executor, String input)
+    {
         for (String identifier : identifiers) {
             if (input.equalsIgnoreCase(identifier)) {
                 return true;
@@ -76,42 +86,51 @@ public abstract class BasicCommand implements Command {
     }
 
     @Override
-    public boolean isInProgress(CommandSender executor) {
+    public boolean isInProgress(CommandSender executor)
+    {
         return false;
     }
 
     @Override
-    public boolean isInteractive() {
+    public boolean isInteractive()
+    {
         return false;
     }
 
     @Override
-    public boolean isShownOnHelpMenu() {
+    public boolean isShownOnHelpMenu()
+    {
         return true;
     }
 
-    public void setArgumentRange(int min, int max) {
+    public void setArgumentRange(int min, int max)
+    {
         this.minArguments = min;
         this.maxArguments = max;
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String description)
+    {
         this.description = description;
     }
 
-    public void setIdentifiers(String... identifiers) {
+    public void setIdentifiers(String... identifiers)
+    {
         this.identifiers = identifiers;
     }
 
-    public void setNotes(String... notes) {
+    public void setNotes(String... notes)
+    {
         this.notes = notes;
     }
 
-    public void setPermission(String permission) {
+    public void setPermission(String permission)
+    {
         this.permission = permission;
     }
 
-    public void setUsage(String usage) {
+    public void setUsage(String usage)
+    {
         this.usage = usage;
     }
 }

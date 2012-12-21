@@ -6,14 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author p000ison
  */
 public class OfferCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public OfferCommand(TradeMe plugin) {
+    public OfferCommand(TradeMe plugin)
+    {
         super("Offer");
         this.plugin = plugin;
         setDescription("Does a offer.");
@@ -24,7 +24,8 @@ public class OfferCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 

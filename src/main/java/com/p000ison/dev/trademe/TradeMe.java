@@ -5,8 +5,6 @@ import com.p000ison.dev.trademe.managers.CommandHandler;
 import com.p000ison.dev.trademe.managers.SettingsManager;
 import com.p000ison.dev.trademe.managers.TradeHandler;
 import com.p000ison.dev.trademe.managers.commands.*;
-import java.io.IOException;
-import java.util.logging.Logger;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import net.milkbowl.vault.permission.Permission;
@@ -16,36 +14,39 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.mcstats.Metrics;
+
+import java.io.IOException;
+import java.util.logging.Logger;
 
 /**
- *
  * @author p000ison
  */
 public class TradeMe extends JavaPlugin {
 
     private static final Logger log = Logger.getLogger("Minecraft");
     private SettingsManager SettingsManager;
-    private Util util;
     private static Permission perms = null;
     private static Economy econ = null;
     private TradeHandler tradeHandler;
     private CommandHandler commandHandler = new CommandHandler();
 
     @Override
-    public void onDisable() {
+    public void onDisable()
+    {
     }
 
     @Override
-    public void onEnable() {
-        final long startTime = System.nanoTime();
+    public void onEnable()
+    {
+        final long startTime = System.currentTimeMillis();
 
         SettingsManager = new SettingsManager(this);
-        util = new Util();
         tradeHandler = new TradeHandler(this);
 
         registerCommands();
         setupMetrics();
-        
+
         if (getServer().getPluginManager().getPlugin("Vault") != null) {
             setupPermissions();
             log.info("Hooked Vault for Permission-Support!");
@@ -58,11 +59,12 @@ public class TradeMe extends JavaPlugin {
             log.severe(String.format("[%s] - Disabled due to no Vault dependency found!", getDescription().getName()));
             getServer().getPluginManager().disablePlugin(this);
         }
-        final long endTime = System.nanoTime();
-        log.info(String.format("Enabled (%s s)", ((double)(endTime - startTime)) / 1000000000.0));
+        final long endTime = System.currentTimeMillis();
+        log.info(String.format("Enabled (%s s)", ((double) (endTime - startTime)) / 1000.0D));
     }
 
-    private void registerCommands() {
+    private void registerCommands()
+    {
         commandHandler = new CommandHandler();
 
         commandHandler.addCommand(new HelpCommand(this));
@@ -77,22 +79,25 @@ public class TradeMe extends JavaPlugin {
         commandHandler.addCommand(new OfferItemCommand(this));
     }
 
-    public void setupMetrics() {
+    public void setupMetrics()
+    {
         try {
-            MetricsLite metrics = new MetricsLite(this);
+            Metrics metrics = new Metrics(this);
             metrics.start();
         } catch (IOException e) {
             log.severe(String.format("Could not send Plugin-Stats: %s", e.getMessage()));
         }
     }
 
-    private boolean setupPermissions() {
+    private boolean setupPermissions()
+    {
         RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
         perms = rsp.getProvider();
         return perms != null;
     }
 
-    private boolean setupEconomy() {
+    private boolean setupEconomy()
+    {
         if (getServer().getPluginManager().getPlugin("Vault") == null) {
             return false;
         }
@@ -105,11 +110,13 @@ public class TradeMe extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
+    {
         return commandHandler.dispatch(sender, cmd, commandLabel, args);
     }
 
-    public static void deposit(Player player, double value) {
+    public static void deposit(Player player, double value)
+    {
         EconomyResponse r = econ.depositPlayer(player.getName(), value);
         if (r.transactionSuccess()) {
             player.sendMessage(Util.color(String.format("&4You were given %s and now have %s", econ.format(r.amount), econ.format(r.balance))));
@@ -117,12 +124,14 @@ public class TradeMe extends JavaPlugin {
             player.sendMessage(Util.color(String.format("&4An error occured: %s", r.errorMessage)));
         }
     }
-    
-    public static boolean hasMoney(Player player, double price) {
+
+    public static boolean hasMoney(Player player, double price)
+    {
         return econ.has(player.getName(), price);
     }
 
-    public static void withdraw(Player player, double value) {
+    public static void withdraw(Player player, double value)
+    {
         EconomyResponse r = econ.withdrawPlayer(player.getName(), value);
         if (r.transactionSuccess()) {
             player.sendMessage(Util.color(String.format("&4You were withdrawen %s and now have %s", econ.format(r.amount), econ.format(r.balance))));
@@ -131,7 +140,8 @@ public class TradeMe extends JavaPlugin {
         }
     }
 
-    public static boolean hasPermission(Player player, String permission) {
+    public static boolean hasPermission(Player player, String permission)
+    {
         if (perms != null) {
             return perms.has(player, permission);
         }
@@ -141,28 +151,24 @@ public class TradeMe extends JavaPlugin {
     /**
      * @return the commandHandler
      */
-    public CommandHandler getCommandHandler() {
+    public CommandHandler getCommandHandler()
+    {
         return commandHandler;
     }
 
     /**
      * @return the tradeHandler
      */
-    public TradeHandler getTradeHandler() {
+    public TradeHandler getTradeHandler()
+    {
         return tradeHandler;
-    }
-
-    /**
-     * @return the util
-     */
-    public Util getUtil() {
-        return util;
     }
 
     /**
      * @return the SettingsManager
      */
-    public SettingsManager getSettingsManager() {
+    public SettingsManager getSettingsManager()
+    {
         return SettingsManager;
     }
 }

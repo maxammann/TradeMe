@@ -2,49 +2,53 @@ package com.p000ison.dev.trademe.listener;
 
 import com.p000ison.dev.trademe.TradeMe;
 import com.p000ison.dev.trademe.Util;
+import com.p000ison.dev.trademe.managers.TradeHandler;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-/**
- *
- * @author p000ison
- */
+@SuppressWarnings("unused")
 public class TMPlayerListener implements Listener {
 
     private TradeMe plugin;
 
-    public TMPlayerListener(TradeMe plugin) {
+    public TMPlayerListener(TradeMe plugin)
+    {
         this.plugin = plugin;
     }
 
     @EventHandler(priority = EventPriority.LOW)
-    public void onPlayerMove(PlayerMoveEvent event) {
+    public void onPlayerMove(PlayerMoveEvent event)
+    {
         if (plugin.getSettingsManager().getDistanceMinimum() != -1) {
-            if (plugin.getTradeHandler().isTrading(event.getPlayer()) || plugin.getTradeHandler().isInRequest(event.getPlayer())) {
-                if ((Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()) != null && event.getPlayer().getLocation().distance(Bukkit.getPlayer(Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()).getName()).getLocation()) >= plugin.getSettingsManager().getDistanceMinimum())
-                        || (Util.getPartner(plugin.getTradeHandler().getTradeRequests(), event.getPlayer()) != null && event.getPlayer().getLocation().distance(Bukkit.getPlayer(Util.getPartner(plugin.getTradeHandler().getTradeRequests(), event.getPlayer()).getName()).getLocation()) >= plugin.getSettingsManager().getDistanceMinimum())) {
+            Player player = event.getPlayer();
+            TradeHandler handler = plugin.getTradeHandler();
 
-                    event.getPlayer().sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
-                    if (Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()) != null) {
-                        Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()).sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
+            if (handler.isTrading(player) || handler.isInRequest(player)) {
+                if ((Util.getPartner(handler.getTrade(), player) != null && player.getLocation().distance(Bukkit.getPlayer(Util.getPartner(handler.getTrade(), player).getName()).getLocation()) >= plugin.getSettingsManager().getDistanceMinimum())
+                        || (Util.getPartner(handler.getTradeRequests(), player) != null && player.getLocation().distance(Bukkit.getPlayer(Util.getPartner(handler.getTradeRequests(), player).getName()).getLocation()) >= plugin.getSettingsManager().getDistanceMinimum())) {
+
+                    player.sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
+                    if (Util.getPartner(handler.getTrade(), player) != null) {
+                        Util.getPartner(handler.getTrade(), player).sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
                     } else {
-                        Util.getPartner(plugin.getTradeHandler().getTradeRequests(), event.getPlayer()).sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
+                        Util.getPartner(handler.getTradeRequests(), player).sendMessage(Util.color(plugin.getSettingsManager().getErrorTooFar()));
                     }
-                    if (plugin.getTradeHandler().isTrading(event.getPlayer())) {
-                        if (plugin.getTradeHandler().getTrade().containsKey(event.getPlayer())) {
-                            plugin.getTradeHandler().cancelTradeFromRequester(event.getPlayer());
-                        } else if (plugin.getTradeHandler().getTrade().containsValue(event.getPlayer())) {
-                            plugin.getTradeHandler().cancelTradeFromTarget(event.getPlayer());
+                    if (handler.isTrading(player)) {
+                        if (handler.getTrade().containsKey(player)) {
+                            handler.cancelTradeFromRequester(player);
+                        } else if (handler.getTrade().containsValue(player)) {
+                            handler.cancelTradeFromTarget(player);
                         }
-                    } else if (plugin.getTradeHandler().isInRequest(event.getPlayer())) {
-                        if (plugin.getTradeHandler().getTradeRequests().containsKey(event.getPlayer())) {
-                            plugin.getTradeHandler().cancelRequestFromRequester(event.getPlayer());
-                        } else if (plugin.getTradeHandler().getTradeRequests().containsValue(event.getPlayer())) {
-                            plugin.getTradeHandler().cancelRequestFromTarget(event.getPlayer());
+                    } else if (handler.isInRequest(player)) {
+                        if (handler.getTradeRequests().containsKey(player)) {
+                            handler.cancelRequestFromRequester(player);
+                        } else if (handler.getTradeRequests().containsValue(player)) {
+                            handler.cancelRequestFromTarget(player);
                         }
                     }
                 }
@@ -53,24 +57,28 @@ public class TMPlayerListener implements Listener {
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        if (plugin.getTradeHandler().isTrading(event.getPlayer()) || plugin.getTradeHandler().isInRequest(event.getPlayer())) {
-            if (Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()) == null
-                    || Util.getPartner(plugin.getTradeHandler().getTradeRequests(), event.getPlayer()) == null) {
+    public void onPlayerQuit(PlayerQuitEvent event)
+    {
+        Player player = event.getPlayer();
+        TradeHandler handler = plugin.getTradeHandler();
+
+        if (handler.isTrading(player) || handler.isInRequest(player)) {
+            if (Util.getPartner(handler.getTrade(), player) == null
+                    || Util.getPartner(handler.getTradeRequests(), player) == null) {
                 return;
             }
-            Util.getPartner(plugin.getTradeHandler().getTrade(), event.getPlayer()).sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorPlayerNotAviable(), event.getPlayer().getName())));
+            Util.getPartner(handler.getTrade(), player).sendMessage(Util.color(String.format(plugin.getSettingsManager().getErrorPlayerNotAviable(), player.getName())));
 
-            if (plugin.getTradeHandler().getTrade().containsKey(event.getPlayer())) {
-                plugin.getTradeHandler().cancelTradeFromRequester(event.getPlayer());
-            } else if (plugin.getTradeHandler().getTradeRequests().containsKey(event.getPlayer())) {
-                plugin.getTradeHandler().cancelRequestFromRequester(event.getPlayer());
+            if (handler.getTrade().containsKey(player)) {
+                handler.cancelTradeFromRequester(player);
+            } else if (handler.getTradeRequests().containsKey(player)) {
+                handler.cancelRequestFromRequester(player);
             }
 
-            if (plugin.getTradeHandler().getTrade().containsValue(event.getPlayer())) {
-                plugin.getTradeHandler().cancelTradeFromTarget(event.getPlayer());
-            } else if (plugin.getTradeHandler().getTradeRequests().containsValue(event.getPlayer())) {
-                plugin.getTradeHandler().cancelRequestFromTarget(event.getPlayer());
+            if (handler.getTrade().containsValue(player)) {
+                handler.cancelTradeFromTarget(player);
+            } else if (handler.getTradeRequests().containsValue(player)) {
+                handler.cancelRequestFromTarget(player);
             }
         }
     }

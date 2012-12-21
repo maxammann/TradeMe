@@ -6,14 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author p000ison
  */
 public class ChatCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public ChatCommand(TradeMe plugin) {
+    public ChatCommand(TradeMe plugin)
+    {
         super("Chat");
         this.plugin = plugin;
         setDescription("Chat with your partner");
@@ -24,7 +24,8 @@ public class ChatCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (plugin.getTradeHandler().isTrading(player)) {

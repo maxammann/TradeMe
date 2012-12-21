@@ -6,14 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author p000ison
  */
 public class AcceptCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public AcceptCommand(TradeMe plugin) {
+    public AcceptCommand(TradeMe plugin)
+    {
         super("Accept");
         this.plugin = plugin;
         setDescription("Accepts a request.");
@@ -24,7 +24,8 @@ public class AcceptCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (plugin.getTradeHandler().getTradeRequests().containsValue(player)) {

@@ -12,38 +12,45 @@ package com.p000ison.dev.trademe.managers;
 
 import com.p000ison.dev.trademe.TradeMe;
 import com.p000ison.dev.trademe.managers.commands.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
-import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class CommandHandler {
 
     protected LinkedHashMap<String, Command> commands;
 
-    public CommandHandler() {
+    public CommandHandler()
+    {
         commands = new LinkedHashMap<String, Command>();
     }
 
-    public void addCommand(Command command) {
+    public void addCommand(Command command)
+    {
         commands.put(command.getName().toLowerCase(), command);
     }
 
-    public void removeCommand(Command command) {
+    public void removeCommand(Command command)
+    {
         commands.remove(command);
     }
 
-    public Command getCommand(String name) {
+    public Command getCommand(String name)
+    {
         return commands.get(name.toLowerCase());
     }
 
-    public List<Command> getCommands() {
+    public List<Command> getCommands()
+    {
         return new ArrayList<Command>(commands.values());
     }
 
-    public boolean dispatch(CommandSender sender, org.bukkit.command.Command command, String label, String[] args) {
+    public boolean dispatch(CommandSender sender, org.bukkit.command.Command command, String label, String[] args)
+    {
 
         String[] arguments;
         if (args.length < 1) {
@@ -87,7 +94,8 @@ public class CommandHandler {
         return true;
     }
 
-    private void displayCommandHelp(Command cmd, CommandSender sender) {
+    private void displayCommandHelp(Command cmd, CommandSender sender)
+    {
         sender.sendMessage("§cCommand:§e " + cmd.getName());
         sender.sendMessage("§cDescription:§e " + cmd.getDescription());
         sender.sendMessage("§cUsage:§e " + cmd.getUsage());
@@ -98,7 +106,8 @@ public class CommandHandler {
         }
     }
 
-    public static boolean hasPermission(CommandSender sender, String permission) {
+    public static boolean hasPermission(CommandSender sender, String permission)
+    {
         if (!(sender instanceof Player) || permission == null || permission.isEmpty()) {
             return true;
         }

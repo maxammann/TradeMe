@@ -1,5 +1,5 @@
-
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.p000ison.dev</groupId>
     <artifactId>TradeMe</artifactId>
@@ -8,7 +8,7 @@
     <url>http://www.bukkit.org</url>
 
     <build>
-		<!-- Resources -->
+        <!-- Resources -->
         <resources>
             <resource>
                 <targetPath>.</targetPath>
@@ -20,14 +20,15 @@
                 </includes>
             </resource>
         </resources>
-		
-		<!-- Plugins -->
-        <plugins>        
+
+        <!-- Plugins -->
+        <plugins>
             <!-- Compilation plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>2.5.1</version>
+                <inherited>false</inherited>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -36,64 +37,54 @@
                     <fork>true</fork>
                 </configuration>
             </plugin>
-            
-			<!-- JAR creation plugin -->
+
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.3.2</version>				
-                <configuration>
-                    <outputDirectory>${basedir}/out/</outputDirectory>
-                    <archive>
-                        <manifestEntries>
-                            <Implementation-Title>${project.name}</Implementation-Title>
-                            <Implementation-Version>${describe}</Implementation-Version>
-                            <Implementation-Vendor>TropicalDreamZ</Implementation-Vendor>
-                            
-                            <Specification-Title>${project.name}</Specification-Title>
-                            <Specification-Version>${version.number}</Specification-Version>
-                            <Specification-Vendor>TropicalDreamZ</Specification-Vendor>
-                            <Sealed>true</Sealed>
-                        </manifestEntries>
-                        <manifestSections>
-                            <manifestSection>
-                                <name>me/p000ison/dreamz/</name>
-                                <manifestEntries>
-                                    <Sealed>true</Sealed>
-                                </manifestEntries>
-                            </manifestSection>
-                        </manifestSections>
-                    </archive>
-                </configuration>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>1.7.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.bukkit:bukkit</exclude>
+                                    <exclude>net.milkbowl.vault:Vault</exclude>
+                                </excludes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
     <!-- Dependencies -->
     <dependencies>
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
-            <version>1.2.5-R1.0</version>
-            <type>jar</type>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>minecraft-server</artifactId>
-            <version>1.2.4</version>
+            <version>1.4.2-R0.2-SNAPSHOT</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
-            <version>1.2.14-SNAPSHOT</version>
+            <version>1.2.18-SNAPSHOT</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>3.8.2</version>
-            <scope>test</scope>
+            <groupId>org.mcstats</groupId>
+            <artifactId>metrics</artifactId>
+            <version>1.1</version>
+            <type>jar</type>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <!-- Repositories -->
@@ -103,14 +94,12 @@
             <url>http://repo.bukkit.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>milkbowl-repo</id>
-            <url>http://ci.milkbowl.net/plugin/repository/everything/</url>
+            <id>vault-repo</id>
+            <url>http://ci.herocraftonline.com/plugin/repository/everything</url>
         </repository>
         <repository>
-            <url>http://repo1.maven.org/maven2/</url>
-            <id>junit</id>
-            <layout>default</layout>
-            <name>Repository for library Library[junit]</name>
+            <id>metrics</id>
+            <url>http://repo.mcstats.org/content/repositories/releases/</url>
         </repository>
     </repositories>
 

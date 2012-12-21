@@ -3,7 +3,6 @@ package com.p000ison.dev.trademe.managers.commands;
 import org.bukkit.command.CommandSender;
 
 /**
- *
  * @author p000ison
  */
 public interface Command {

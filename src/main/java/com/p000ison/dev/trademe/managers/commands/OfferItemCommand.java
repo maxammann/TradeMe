@@ -1,23 +1,19 @@
 package com.p000ison.dev.trademe.managers.commands;
 
-import com.p000ison.dev.trademe.Offer;
 import com.p000ison.dev.trademe.TradeMe;
 import com.p000ison.dev.trademe.Util;
-import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
- *
  * @author p000ison
  */
 public class OfferItemCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public OfferItemCommand(TradeMe plugin) {
+    public OfferItemCommand(TradeMe plugin)
+    {
         super("OfferItem");
         this.plugin = plugin;
         setDescription("Does a offeritem.");
@@ -28,7 +24,8 @@ public class OfferItemCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
 

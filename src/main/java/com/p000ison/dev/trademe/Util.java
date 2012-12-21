@@ -1,19 +1,21 @@
 package com.p000ison.dev.trademe;
 
-import java.util.HashMap;
-import java.util.Map.Entry;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-/**
- *
- * @author p000ison
- */
+import java.util.HashMap;
+import java.util.Map.Entry;
+
 public class Util {
 
-    public static Player getKeyfromValue(HashMap<Player, Player> map, Player value) {
+    private Util()
+    {
+    }
+
+    public static Player getKeyfromValue(HashMap<Player, Player> map, Player value)
+    {
         for (Entry<Player, Player> entry : map.entrySet()) {
             if (entry.getValue().equals(value)) {
                 return entry.getKey();
@@ -22,7 +24,8 @@ public class Util {
         return null;
     }
 
-    public static Player getKeyfromValue(HashMap<Player, Offer> map, Offer value) {
+    public static Player getKeyfromValue(HashMap<Player, Offer> map, Offer value)
+    {
         for (Entry<Player, Offer> entry : map.entrySet()) {
             if (entry.getValue().equals(value)) {
                 return entry.getKey();
@@ -31,7 +34,8 @@ public class Util {
         return null;
     }
 
-    public static Player getPartner(HashMap<Player, Player> map, Player player) {
+    public static Player getPartner(HashMap<Player, Player> map, Player player)
+    {
         if (map.containsKey(player)) {
             return map.get(player);
         } else if (map.containsValue(player)) {
@@ -40,14 +44,16 @@ public class Util {
         return null;
     }
 
-    public static boolean checkItem(String itemname) {
+    public static boolean checkItem(String itemname)
+    {
         return Material.matchMaterial(itemname) != null;
     }
 
     /**
-     * @author Acrobot
+     * Author: Acrobot
      */
-    public static int remove(Inventory inv, ItemStack item, int amount, short durability) {
+    public static int remove(Inventory inv, ItemStack item, int amount, short durability)
+    {
         amount = (amount > 0 ? amount : 1);
         Material itemMaterial = item.getType();
 
@@ -84,19 +90,21 @@ public class Util {
         return amount;
     }
 
-    private static boolean equals(ItemStack i, ItemStack item, short durability) {
+    private static boolean equals(ItemStack i, ItemStack item, short durability)
+    {
         return i != null
                 && i.getType() == item.getType()
                 && i.getData().getData() == item.getData().getData()
                 && (durability == -1 || i.getDurability() == durability);
     }
 
-    public static String color(String text) {
-        String colourised = text.replaceAll("&(?=[0-9a-fA-FkK])", "\u00a7");
-        return colourised;
+    public static String color(String text)
+    {
+        return text.replaceAll("&(?=[0-9a-fA-FkK])", "\u00a7");
     }
 
-    public static boolean contains(Inventory inv, Material mat, int amount, byte data) {
+    public static boolean contains(Inventory inv, Material mat, int amount, byte data)
+    {
         int i = 0;
 
         for (ItemStack is : inv.getContents()) {
@@ -109,7 +117,8 @@ public class Util {
         return i >= amount;
     }
 
-    public static int add(Inventory inv, ItemStack item, int amount) {
+    public static int add(Inventory inv, ItemStack item, int amount)
+    {
         amount = (amount > 0 ? amount : 1);
         ItemStack itemstack = new ItemStack(item.getType(), amount, item.getDurability());
         itemstack.addEnchantments(item.getEnchantments());
@@ -123,7 +132,8 @@ public class Util {
         return amount;
     }
 
-    public static Material getMaterialFromIdOrName(String name) {
+    public static Material getMaterialFromIdOrName(String name)
+    {
         if (checkItem(name) || checkItem(Material.getMaterial(Integer.parseInt(name)).name())) {
             if (name.matches("[0-9]+")) {
                 return Material.getMaterial(Integer.parseInt(name));

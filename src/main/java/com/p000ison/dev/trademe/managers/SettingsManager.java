@@ -1,10 +1,11 @@
 package com.p000ison.dev.trademe.managers;
 
 import com.p000ison.dev.trademe.TradeMe;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
-import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  * @author p000ison
@@ -57,7 +58,8 @@ public final class SettingsManager {
     /**
      *
      */
-    public SettingsManager(TradeMe plugin) {
+    public SettingsManager(TradeMe plugin)
+    {
         this.plugin = plugin;
         config = plugin.getConfig();
         main = new File(getPlugin().getDataFolder() + File.separator + "config.yml");
@@ -67,7 +69,8 @@ public final class SettingsManager {
     /**
      * Load the configuration
      */
-    public void load() {
+    public void load()
+    {
         boolean exists = (main).exists();
 
         if (exists) {
@@ -125,7 +128,8 @@ public final class SettingsManager {
         save();
     }
 
-    public void save() {
+    public void save()
+    {
         try {
             getConfig().save(main);
         } catch (IOException ex) {
@@ -136,287 +140,328 @@ public final class SettingsManager {
     /**
      * @return the plugin
      */
-    public TradeMe getPlugin() {
+    public TradeMe getPlugin()
+    {
         return plugin;
     }
 
     /**
      * @return the config
      */
-    public FileConfiguration getConfig() {
+    public FileConfiguration getConfig()
+    {
         return config;
     }
 
     /**
      * @return the MessageRequestSent
      */
-    public String getMessageRequestSent() {
+    public String getMessageRequestSent()
+    {
         return MessageRequestSent;
     }
 
     /**
      * @return the MessageGotRequest
      */
-    public String getMessageGotRequest() {
+    public String getMessageGotRequest()
+    {
         return MessageGotRequest;
     }
 
     /**
      * @return the MessageOfferSent
      */
-    public String getMessageOfferSent() {
+    public String getMessageOfferSent()
+    {
         return MessageOfferSent;
     }
 
     /**
      * @return the MessageGotOffer
      */
-    public String getMessageGotOffer() {
+    public String getMessageGotOffer()
+    {
         return MessageGotOffer;
     }
 
     /**
      * @return the MessageWatch
      */
-    public String getMessageWatch() {
+    public String getMessageWatch()
+    {
         return MessageWatch;
     }
 
     /**
      * @return the MessageUnWarch
      */
-    public String getMessageUnWatch() {
+    public String getMessageUnWatch()
+    {
         return MessageUnWatch;
     }
 
     /**
      * @return the ErrorNotEnoughtItems
      */
-    public String getErrorNotEnoughtItems() {
+    public String getErrorNotEnoughtItems()
+    {
         return ErrorNotEnoughtItems;
     }
 
     /**
      * @return the ErrorNoRequestToTrade
      */
-    public String getErrorNoRequestToTrade() {
+    public String getErrorNoRequestToTrade()
+    {
         return ErrorNoRequestToTrade;
     }
 
     /**
      * @return the ErrorConsole
      */
-    public String getErrorConsole() {
+    public String getErrorConsole()
+    {
         return ErrorConsole;
     }
 
     /**
      * @return the ErrorTooFar
      */
-    public String getErrorTooFar() {
+    public String getErrorTooFar()
+    {
         return ErrorTooFar;
     }
 
     /**
      * @return the MessageAcceptRequest
      */
-    public String getMessageAcceptRequest() {
+    public String getMessageAcceptRequest()
+    {
         return MessageAcceptRequest;
     }
 
     /**
      * @return the MessageAcceptOffer
      */
-    public String getMessageAcceptOffer() {
+    public String getMessageAcceptOffer()
+    {
         return MessageAcceptOffer;
     }
 
     /**
      * @return the ErrorNotTrading
      */
-    public String getErrorNotTrading() {
+    public String getErrorNotTrading()
+    {
         return ErrorNotTrading;
     }
 
     /**
      * @return the ErrorTradingWithYourself
      */
-    public String getErrorTradingWithYourself() {
+    public String getErrorTradingWithYourself()
+    {
         return ErrorTradingWithYourself;
     }
 
     /**
      * @return the ErrorNotAValidPlayer
      */
-    public String getErrorNotAValidPlayer() {
+    public String getErrorNotAValidPlayer()
+    {
         return ErrorNotAValidPlayer;
     }
 
     /**
      * @return the MessageCancelTradeRequest
      */
-    public String getMessageDenyTrade() {
+    public String getMessageDenyTrade()
+    {
         return MessageDenyTrade;
     }
 
     /**
      * @return the MessageCancelTrade
      */
-    public String getMessageCancelTrade() {
+    public String getMessageCancelTrade()
+    {
         return MessageCancelTrade;
     }
 
     /**
      * @return the MessageDenyTradeRequest
      */
-    public String getMessageDenyTradeRequest() {
+    public String getMessageDenyTradeRequest()
+    {
         return MessageDenyTradeRequest;
     }
 
     /**
      * @return the MessageCancelTradeRequest
      */
-    public String getMessageCancelTradeRequest() {
+    public String getMessageCancelTradeRequest()
+    {
         return MessageCancelTradeRequest;
     }
 
     /**
      * @return the MessageReload
      */
-    public String getMessageReload() {
+    public String getMessageReload()
+    {
         return MessageReload;
     }
 
     /**
      * @return the MessageOtherAcceptRequest
      */
-    public String getMessageOtherAcceptRequest() {
+    public String getMessageOtherAcceptRequest()
+    {
         return MessageOtherAcceptRequest;
     }
 
     /**
      * @return the MessageOtherAcceptOffer
      */
-    public String getMessageOtherAcceptOffer() {
+    public String getMessageOtherAcceptOffer()
+    {
         return MessageOtherAcceptOffer;
     }
 
     /**
      * @return the MessageOtherDenyTrade
      */
-    public String getMessageOtherDenyTrade() {
+    public String getMessageOtherDenyTrade()
+    {
         return MessageOtherDenyTrade;
     }
 
     /**
      * @return the MessageOtherCancelTrade
      */
-    public String getMessageOtherCancelTrade() {
+    public String getMessageOtherCancelTrade()
+    {
         return MessageOtherCancelTrade;
     }
 
     /**
      * @return the MessageOtherDenyTradeRequest
      */
-    public String getMessageOtherDenyTradeRequest() {
+    public String getMessageOtherDenyTradeRequest()
+    {
         return MessageOtherDenyTradeRequest;
     }
 
     /**
      * @return the MessageOtherCancelTradeRequest
      */
-    public String getMessageOtherCancelTradeRequest() {
+    public String getMessageOtherCancelTradeRequest()
+    {
         return MessageOtherCancelTradeRequest;
     }
 
     /**
      * @return the MessageDeniedOffer
      */
-    public String getMessageDeniedOffer() {
+    public String getMessageDeniedOffer()
+    {
         return MessageDeniedOffer;
     }
 
     /**
      * @return the MessageOtherDeniedOffer
      */
-    public String getMessageOtherDeniedOffer() {
+    public String getMessageOtherDeniedOffer()
+    {
         return MessageOtherDeniedOffer;
     }
 
     /**
      * @return the ErrorNoOffer
      */
-    public String getErrorNoOffer() {
+    public String getErrorNoOffer()
+    {
         return ErrorNoOffer;
     }
 
     /**
      * @return the ErrorInvalidItem
      */
-    public String getErrorInvalidItem() {
+    public String getErrorInvalidItem()
+    {
         return ErrorInvalidItem;
     }
 
     /**
      * @return the ErrorPlayerNotAviable
      */
-    public String getErrorPlayerNotAviable() {
+    public String getErrorPlayerNotAviable()
+    {
         return ErrorPlayerNotAviable;
     }
 
     /**
      * @return the DistanceMinimum
      */
-    public double getDistanceMinimum() {
+    public double getDistanceMinimum()
+    {
         return DistanceMinimum;
     }
 
     /**
      * @return the ErrorNotEnoughtMoney
      */
-    public String getErrorNotEnoughtMoney() {
+    public String getErrorNotEnoughtMoney()
+    {
         return ErrorNotEnoughtMoney;
     }
 
     /**
      * @return the ErrorOtherNotEnoughtMoney
      */
-    public String getErrorOtherNotEnoughtMoney() {
+    public String getErrorOtherNotEnoughtMoney()
+    {
         return ErrorOtherNotEnoughtMoney;
     }
 
     /**
      * @return the ErrorNotEnoughtPlace
      */
-    public String getErrorNotEnoughtPlace() {
+    public String getErrorNotEnoughtPlace()
+    {
         return ErrorNotEnoughtPlace;
     }
 
     /**
      * @return the ErrorNotOtherEnoughtPlace
      */
-    public String getErrorOtherNotEnoughtPlace() {
+    public String getErrorOtherNotEnoughtPlace()
+    {
         return ErrorOtherNotEnoughtPlace;
     }
 
     /**
      * @return the ErrorOtherNotEnoughtItems
      */
-    public String getErrorOtherNotEnoughtItems() {
+    public String getErrorOtherNotEnoughtItems()
+    {
         return ErrorOtherNotEnoughtItems;
     }
 
     /**
      * @return the MessageItemOfferSent
      */
-    public String getMessageItemOfferSent() {
+    public String getMessageItemOfferSent()
+    {
         return MessageItemOfferSent;
     }
 
     /**
      * @return the MessageGotItemOffer
      */
-    public String getMessageGotItemOffer() {
+    public String getMessageGotItemOffer()
+    {
         return MessageGotItemOffer;
     }
 }

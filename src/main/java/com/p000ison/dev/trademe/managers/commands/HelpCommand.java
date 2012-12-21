@@ -2,12 +2,12 @@ package com.p000ison.dev.trademe.managers.commands;
 
 import com.p000ison.dev.trademe.TradeMe;
 import com.p000ison.dev.trademe.managers.CommandHandler;
-import java.util.ArrayList;
-import java.util.List;
 import org.bukkit.command.CommandSender;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author Max
  */
 public class HelpCommand extends BasicCommand {
@@ -15,7 +15,8 @@ public class HelpCommand extends BasicCommand {
     private static final int CMDS_PER_PAGE = 4;
     private TradeMe plugin;
 
-    public HelpCommand(TradeMe plugin) {
+    public HelpCommand(TradeMe plugin)
+    {
         super("Help");
         this.plugin = plugin;
         setDescription("Displays the help menu");
@@ -25,7 +26,8 @@ public class HelpCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         int page = 0;
         if (args.length != 0) {
             try {

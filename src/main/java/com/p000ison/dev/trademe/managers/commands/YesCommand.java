@@ -7,14 +7,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
- *
  * @author p000ison
  */
 public class YesCommand extends BasicCommand {
 
     private TradeMe plugin = null;
 
-    public YesCommand(TradeMe plugin) {
+    public YesCommand(TradeMe plugin)
+    {
         super("Yes");
         this.plugin = plugin;
         setDescription("Accepts a offer.");
@@ -25,7 +25,8 @@ public class YesCommand extends BasicCommand {
     }
 
     @Override
-    public boolean execute(CommandSender sender, String identifier, String[] args) {
+    public boolean execute(CommandSender sender, String identifier, String[] args)
+    {
         if (sender instanceof Player) {
             Player player = (Player) sender;
             if (plugin.getTradeHandler().isTrading(player)) {
